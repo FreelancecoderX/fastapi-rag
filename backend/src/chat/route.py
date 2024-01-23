@@ -2,7 +2,7 @@ from fastapi import APIRouter, Query, Depends, Path
 from typing import Annotated
 
 from chat.models import ChatResponse
-from chat.dependencies import initialize_index
+from chat.service import initialize_index
 
 router = APIRouter(prefix="/chats", tags=["chats"])
 
