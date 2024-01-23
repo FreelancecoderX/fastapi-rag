@@ -3,8 +3,10 @@ from pydantic_settings import BaseSettings
 
 def get_settings():
     class AppSettings(BaseSettings):
+        EMBEDDING_MODEL: str
         ENVIRONMENT: str
         FILES: str
+        HUGGINGFACEHUB_API_TOKEN: str
         MODEL: str
         MONGO_URI: str
         PINECONE_API_KEY: str
