@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from starlette.config import Config
+import uvicorn
 
 # from fastapi_limiter import FastAPILimiter
 # from fastapi_limiter.depends import RateLimiterDependency
@@ -9,13 +10,13 @@ from chat import route as chat_route
 
 config = Config(".env")
 
-ENVIRONMENT = Config("ENVIRONMENT")
-SHOW_DOCS_ENVIRONMENT = ("local", "staging")
+# ENVIRONMENT = Config("ENVIRONMENT")
+# SHOW_DOCS_ENVIRONMENT = ("local", "staging")
 
 app_configs = {"title": "RAG API"}
 
-if ENVIRONMENT not in SHOW_DOCS_ENVIRONMENT:
-    app_configs["openapi_url"] = None
+# if ENVIRONMENT not in SHOW_DOCS_ENVIRONMENT:
+#     app_configs["openapi_url"] = None
 
 app = FastAPI(**app_configs)
 
@@ -35,3 +36,6 @@ app.include_router(chat_route.router)
 
 
 # FastAPILimiter(app=app, dependency=limiter)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=5049)
