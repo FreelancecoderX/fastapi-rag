@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
 class ChatResponse(BaseModel):
-    chat_id: int
+    chat_id: str
     answer: str
     sources: str
