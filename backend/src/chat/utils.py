@@ -8,7 +8,7 @@ from llama_index.storage.index_store import MongoIndexStore
 from llama_index.vector_stores import PineconeVectorStore
 from pinecone import Pinecone
 
-from constants import TOP_K, MONGODB_INDEX
+from chat.constants import TOP_K, MONGODB_INDEX
 
 
 def build_pinecone_vector_store(api_key: str, index: str):

@@ -1,10 +1,12 @@
+import certifi
 from llama_index.embeddings import HuggingFaceEmbedding
 from llama_index import StorageContext, ServiceContext, LLMPredictor
 from llama_index.indices.loading import load_index_from_storage
 from llama_index.llms import TogetherLLM
-from pymongo import MongoClient
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
-from utils import (
+from chat.utils import (
     build_pinecone_vector_store,
     build_mongo_index,
     buildVectorIndex,
@@ -12,7 +14,7 @@ from utils import (
     getExistingLlamaIndexes,
 )
 from config import settings
-from constants import MONGODB_INDEX
+from chat.constants import MONGODB_INDEX
 
 index_store = build_mongo_index(uri=settings.MONGO_URI)
 vector_store = build_pinecone_vector_store(
@@ -37,7 +39,14 @@ mongoIndex = None
 
 
 def initialize_index():
-    database = MongoClient(host=settings.MONGO_URI).get_database()
+    ca = certifi.where()
+
+    client = MongoClient(
+        host=settings.MONGO_URI,
+        server_api=ServerApi(settings.MONGO_SERVER_API),
+        tlsCAFile=ca,
+    )
+    database = client.get_default_database()
     existing_indexes = getExistingLlamaIndexes(database=database)
 
     global mongoIndex

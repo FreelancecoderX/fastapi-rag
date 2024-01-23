@@ -8,6 +8,8 @@ def get_settings():
         FILES: str
         HUGGINGFACEHUB_API_TOKEN: str
         MODEL: str
+        MONGO_DATABASE: str
+        MONGO_SERVER_API: str
         MONGO_URI: str
         PINECONE_API_KEY: str
         PINECONE_INDEX: str

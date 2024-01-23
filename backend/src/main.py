@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from starlette.config import Config
 
 # from fastapi_limiter import FastAPILimiter
@@ -17,6 +18,12 @@ if ENVIRONMENT not in SHOW_DOCS_ENVIRONMENT:
     app_configs["openapi_url"] = None
 
 app = FastAPI(**app_configs)
+
+
+@app.get("/", tags=["root"])
+def root():
+    return RedirectResponse("/docs")
+
 
 app.include_router(chat_route.router)
 
